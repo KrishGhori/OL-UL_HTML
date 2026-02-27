@@ -1,65 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Styled Nested List</title>
+
+<style>
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   LIGHT THEME (DEFAULT)
+========================= */
+:root {
+    --bg: #f4f6fb;
+    --card-bg: #ffffff;
+    --text: #1f2937;
+    --border: #e5e7eb;
+    --accent: #2563eb;
+    --nested-bg: #eef2ff;
+}
+
+/* =========================
+   DARK MODE (AUTO)
+========================= */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #e5e7eb;
+        --border: #334155;
+        --accent: #60a5fa;
+        --nested-bg: #1e293b;
+    }
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 40px;
+}
+
+/* =========================
+   CARD UI
+========================= */
+.card {
+    max-width: 850px;
+    margin: auto;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+}
+
+.card h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--accent);
+}
+
+/* =========================
+   LIST BASE STYLES
+========================= */
+ol, ul {
+    margin-left: 25px;
+    margin-top: 8px;
+}
+
+li {
+    margin: 6px 0;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: 0.25s ease;
+}
+
+/* =========================
+   HOVER EFFECT
+========================= */
+li:hover {
+    background: var(--nested-bg);
+    transform: translateX(4px);
+}
+
+/* =========================
+   LEVEL STYLING
+========================= */
+ol > li {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--accent);
+}
+
+li > ul li,
+li > ol li {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+/* =========================
+   NESTED CARD LOOK
+========================= */
+li > ul,
+li > ol {
+    background: var(--nested-bg);
+    padding: 12px;
+    border-radius: 10px;
+    border-left: 4px solid var(--accent);
+}
+
+/* =========================
+   MARKER TYPES
+========================= */
+ul { list-style-type: disc; }
+ul ul { list-style-type: circle; }
+ul ul ul { list-style-type: square; }
+
+/* =========================
+   PRINT STYLES
+========================= */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .card {
+        box-shadow: none;
+        border: none;
+        padding: 10px;
+    }
+
+    li {
+        background: none !important;
+        transform: none !important;
+    }
+}
+</style>
 </head>
+
 <body>
-    <ol>
-        <li>ABC</li>
-        <ul style="list-style-type: disc;">
+
+<div class="card">
+<h1>Nested List Structure</h1>
+
+<ol>
+    <li>ABC
+        <ul>
             <li>1.1</li>
-            <li>1.2</li>
-            <ul style="list-style-type: circle;">
-                <li>1.2.1</li>
-                <li>1.2.2</li>
-                <li>1.2.3</li>
-            </ul>
+            <li>1.2
+                <ul>
+                    <li>1.2.1</li>
+                    <li>1.2.2</li>
+                    <li>1.2.3</li>
+                </ul>
+            </li>
             <li>1.3</li>
         </ul>
-        <li>DEF</li>
+    </li>
+
+    <li>DEF
         <ol type="A" start="4">
             <li>2.1</li>
-            <li>2.2</li>
-            <ol type="I" start="5">
-                <li>2.2.1</li>
-                <li>2.2.2</li>
-                    <ul>
-                        <li>2.2.2.1</li>
-                        <li>2.2.2.2</li>
-                    </ul>
-            </ol>
-            <ol type="I" start="7">
-                <li>2.2.3</li>
-            </ol>
+            <li>2.2
+                <ol type="I" start="5">
+                    <li>2.2.1</li>
+                    <li>2.2.2
+                        <ul>
+                            <li>2.2.2.1</li>
+                            <li>2.2.2.2</li>
+                        </ul>
+                    </li>
+                </ol>
+                <ol type="I" start="7">
+                    <li>2.2.3</li>
+                </ol>
+            </li>
         </ol>
-        </ul>
-        <li>PQR</li>
+    </li>
+
+    <li>PQR
         <ul>
-            <li>3.1</li>
-            <ol type="a">
-                <li>3.2.1</li>
-                    <ul>
-                        <li>3.1.1.1</li>
-                        <li>3.1.1.2</li>
-                        <ol type="i" start="4">
-                            <li>3.1.1.2.1</li>
-                            <li>3.1.1.2.2</li>
-                        </ol>
-                    </ul>
-            </ol>
-           <ol type="a" start="2">
-                        <li>3.1.2</li>
-                    </ol>
+            <li>3.1
+                <ol type="a">
+                    <li>3.1.1
+                        <ul>
+                            <li>3.1.1.1</li>
+                            <li>3.1.1.2
+                                <ol type="i" start="4">
+                                    <li>3.1.1.2.1</li>
+                                    <li>3.1.1.2.2</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+                <ol type="a" start="2">
+                    <li>3.1.2</li>
+                </ol>
+            </li>
+            <li>3.2</li>
         </ul>
-        <ul>
-        <li>3.2</li>
-        </ul>
-        </ul>
-        <li>XYZ</li>
-        <ul>
-        </ol>  
-    </ol>
+    </li>
+
+    <li>XYZ</li>
+</ol>
+
+</div>
+
 </body>
 </html>
